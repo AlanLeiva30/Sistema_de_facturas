@@ -69,16 +69,81 @@ public class Controlador_Producto {
         }
         return respuesta;
     }
+    
+     /**
+     * **************************************************
+     * metodo para actualizar un producto
+     * **************************************************
+     */
+    public boolean actualizar(Producto objeto, int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
 
-    public boolean actualizar(Producto producto, int idProducto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            PreparedStatement consulta = cn.prepareStatement("update tb_producto set nombre=?, cantidad = ?, precio = ?, descripcion= ?, porcentajeIva = ?, idCategoria = ?, estado = ? where idProducto ='" + idProducto + "'");
+            consulta.setString(1, objeto.getNombre());
+            consulta.setInt(2, objeto.getCantidad());
+            consulta.setDouble(3, objeto.getPrecio());
+            consulta.setString(4, objeto.getDescripcion());
+            consulta.setInt(5, objeto.getPorcentajeIva());
+            consulta.setInt(6, objeto.getIdCategoria());
+            consulta.setInt(7, objeto.getEstado());
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e);
+        }
+        return respuesta;
     }
-
+    
+    
+    /**
+     * **************************************************
+     * metodo para eliminar un producto
+     * **************************************************
+     */
     public boolean eliminar(int idProducto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement(
+                    "delete from tb_producto where idProducto ='" + idProducto + "'");
+            consulta.executeUpdate();
+           
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e);
+        }
+        return respuesta;
     }
+    
+    /**
+     * **************************************************
+     * metodo para actualizar stock un producto
+     * **************************************************
+     */
+    
+     public boolean actualizarStock(Producto object, int idProducto) {
+        boolean respuesta = false;
+        Connection cn = Conexion.conectar();
+        try {
+            PreparedStatement consulta = cn.prepareStatement("update tb_producto set cantidad=? where idProducto ='" + idProducto + "'");
+            consulta.setInt(1, object.getCantidad());
 
-    public boolean actualizarStock(Producto producto, int idProducto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            if (consulta.executeUpdate() > 0) {
+                respuesta = true;
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar stock del producto: " + e);
+        }
+        return respuesta;
     }
 }
+
