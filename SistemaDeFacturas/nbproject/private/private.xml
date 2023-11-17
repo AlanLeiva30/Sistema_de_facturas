@@ -3,25 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/modelo/Producto.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/modelo/Categoria.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Conexion/Conexion.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Controlador/Controlador_Cliente.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Controlador/Controlador_Producto.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterActualizarStock.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterCliente.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Controlador/Controlador_Usuario.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterFacturacion.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/modelo/Usuario.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterUsuario.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/modelo/Cliente.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterGestionarCliente.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Controlador/Controlador_Categoria.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/FrmMenu.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterProducto.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterGestionarUsuario.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterGestionarProducto.java</file>
-            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyecto%20ADS/SistemaDeFacturas/src/Vista/InterGestionarCategoria.java</file>
+            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyectogit/Sistema_de-_facturas/SistemaDeFacturas/src/Vista/FrmMenu.java</file>
+            <file>file:/C:/Users/Alan%20Leiva/Documents/Proyectogit/Sistema_de-_facturas/SistemaDeFacturas/src/Vista/FrmlLogin.java</file>
         </group>
     </open-files>
 </project-private>

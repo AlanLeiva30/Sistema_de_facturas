@@ -45,6 +45,9 @@ public class FrmlLogin extends javax.swing.JFrame {
         txt_usuario = new javax.swing.JTextField();
         txt_password = new javax.swing.JPasswordField();
         jButton_Iniciarsesion = new javax.swing.JButton();
+        jButton_borrar_Campos = new javax.swing.JButton();
+        Boton_Cerrar = new javax.swing.JToggleButton();
+        jCheckBox_ver_clave = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,27 +120,62 @@ public class FrmlLogin extends javax.swing.JFrame {
             }
         });
 
+        jButton_borrar_Campos.setBackground(new java.awt.Color(0, 204, 0));
+        jButton_borrar_Campos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_borrar_Campos.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_borrar_Campos.setText("Limpiar ");
+        jButton_borrar_Campos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_borrar_CamposActionPerformed(evt);
+            }
+        });
+
+        Boton_Cerrar.setBackground(new java.awt.Color(255, 51, 51));
+        Boton_Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Boton_Cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        Boton_Cerrar.setText("Cerrar Aplicacion");
+        Boton_Cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_CerrarActionPerformed(evt);
+            }
+        });
+
+        jCheckBox_ver_clave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCheckBox_ver_claveMouseClicked(evt);
+            }
+        });
+        jCheckBox_ver_clave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_ver_claveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton_Iniciarsesion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(117, 117, 117)
-                            .addComponent(jLabel4))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_borrar_Campos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txt_password, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                .addComponent(txt_usuario)))))
-                .addContainerGap(101, Short.MAX_VALUE))
+                                .addComponent(txt_usuario))
+                            .addComponent(jButton_Iniciarsesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton_Cerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox_ver_clave)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,10 +189,15 @@ public class FrmlLogin extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71)
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox_ver_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton_Iniciarsesion)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_borrar_Campos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Boton_Cerrar)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,6 +226,27 @@ public class FrmlLogin extends javax.swing.JFrame {
     private void jButton_IniciarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IniciarsesionActionPerformed
         this.login();
     }//GEN-LAST:event_jButton_IniciarsesionActionPerformed
+
+    private void jButton_borrar_CamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrar_CamposActionPerformed
+        txt_usuario.setText("");
+        txt_password.setText("");
+    }//GEN-LAST:event_jButton_borrar_CamposActionPerformed
+
+    private void Boton_CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_CerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_Boton_CerrarActionPerformed
+
+    private void jCheckBox_ver_claveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox_ver_claveMouseClicked
+
+    }//GEN-LAST:event_jCheckBox_ver_claveMouseClicked
+
+    private void jCheckBox_ver_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_ver_claveActionPerformed
+        if (jCheckBox_ver_clave.isSelected()) {
+            txt_password.setEchoChar((char) 0); // Carácter para mostrar
+        } else {
+            txt_password.setEchoChar('*'); // Carácter para ocultar, asumiendo que usas '*' como tu carácter de eco predeterminado
+        }
+    }//GEN-LAST:event_jCheckBox_ver_claveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +284,10 @@ public class FrmlLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton Boton_Cerrar;
     private javax.swing.JButton jButton_Iniciarsesion;
+    private javax.swing.JButton jButton_borrar_Campos;
+    private javax.swing.JCheckBox jCheckBox_ver_clave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

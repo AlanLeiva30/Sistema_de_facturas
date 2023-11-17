@@ -281,6 +281,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuItem_cerrar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerrar-sesion.png"))); // NOI18N
         jMenuItem_cerrar_sesion.setText("Cerrar Sesión");
         jMenuItem_cerrar_sesion.setPreferredSize(new java.awt.Dimension(150, 30));
+        jMenuItem_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_cerrar_sesionActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem_cerrar_sesion);
 
         jMenuBar1.add(jMenu8);
@@ -353,6 +358,10 @@ public class FrmMenu extends javax.swing.JFrame {
         jDesktopPane_menu.add(interFacturacion);
         interFacturacion.setVisible(true);
     }//GEN-LAST:event_jMenuItem_nueva_ventaActionPerformed
+
+    private void jMenuItem_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cerrar_sesionActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem_cerrar_sesionActionPerformed
 
     /**
      * @param args the command line arguments
