@@ -5,14 +5,20 @@ import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import Conexion.Conexion;
+import Controlador.Controlador_RegistrarVenta;
+import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.CabeceraVenta;
 import modelo.DetalleVenta;
+import Controlador.VentaPDF;
 
 public class InterFacturacion extends javax.swing.JInternalFrame {
 
@@ -21,6 +27,8 @@ public class InterFacturacion extends javax.swing.JInternalFrame {
     //Lista para el detalle de venta de los productos
     ArrayList<DetalleVenta> listaProductos = new ArrayList<>();
     private DetalleVenta producto; //Almacen de productos que se venderan
+
+    private int idCliente = 0;//id del cliente seleccionado
 
     private int idProducto;
     private String nombre = "";
@@ -309,7 +317,77 @@ public class InterFacturacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_RegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegistrarVentaActionPerformed
-        // TODO add your handling code here:
+        CabeceraVenta cabeceraVenta = new CabeceraVenta();
+        DetalleVenta detalleVenta = new DetalleVenta();
+        Controlador_RegistrarVenta controlVenta = new Controlador_RegistrarVenta();
+
+        String fechaActual = "";
+        Date date = new Date();
+        fechaActual = new SimpleDateFormat("yyyy/MM/dd").format(date);
+
+        if (!jComboBox_cliente.getSelectedItem().equals("Seleccione cliente:")) {
+            if (listaProductos.size() > 0) {
+                //Metodo para obtener el id del cliente
+                this.ObtenerIdCliente();
+                //Registrar cabecera
+                cabeceraVenta.setIdCabeceraventa(0);
+                cabeceraVenta.setIdCliente(idCliente);
+                cabeceraVenta.setValorPagar(Double.parseDouble(txt_total_pagar.getText()));
+                cabeceraVenta.setFechaVenta(fechaActual);
+                cabeceraVenta.setEstado(1);
+
+                if (controlVenta.guardar(cabeceraVenta)) {
+                    JOptionPane.showMessageDialog(null, "¡Venta Registrada!");
+                    
+                    //Generar la factura de venta
+                    VentaPDF pdf = new VentaPDF();
+                    pdf.DatosCliente(idCliente);
+                    pdf.generarFacturaPDF();
+                    
+                    //Guardar detalle
+                    for (DetalleVenta elemento : listaProductos) {
+                        detalleVenta.setIdDetalleVenta(0);
+                        detalleVenta.setIdCabeceraventa(0);
+                        detalleVenta.setIdProducto(elemento.getIdProducto());
+                        detalleVenta.setCantidad(elemento.getCantidad());
+                        detalleVenta.setPrecioUnitario(elemento.getPrecioUnitario());
+                        detalleVenta.setSubTotal(elemento.getSubTotal());
+                        detalleVenta.setDescuento(elemento.getDescuento());
+                        detalleVenta.setIva(elemento.getIva());
+                        detalleVenta.setTotalPagar(elemento.getTotalPagar());
+                        detalleVenta.setEstado(1);
+
+                        if (controlVenta.guardarDetalle(detalleVenta)) {
+                            //System.out.println("Detalle de Venta Registrado");
+
+                            txt_subtotal.setText("0.0");
+                            txt_iva.setText("0.0");
+                            txt_descuento.setText("0.0");
+                            txt_total_pagar.setText("0.0");
+                            txt_efectivo.setText("0.0");
+                            txt_cambio.setText("0.0");
+                            auxIdDetalle = 1;
+
+                            this.CargarComboClientes();
+                            this.RestarStockProductos(elemento.getIdProducto(), elemento.getCantidad());
+                            
+                        } else {
+                            JOptionPane.showMessageDialog(null, "¡Error al guardar detalle de venta!");
+                        }
+                    }
+                    //Vaciamos la lista
+                    listaProductos.clear();
+                    listaTablaProductos();
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "¡Error al guardar cabecera de venta!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "¡Seleccione un producto!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "¡Seleccione un cliente!");
+        }
     }//GEN-LAST:event_jButton_RegistrarVentaActionPerformed
 
     private void jButton_busca_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_busca_clienteActionPerformed
@@ -480,7 +558,7 @@ public class InterFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable_productos;
     private javax.swing.JTextField txt_cambio;
     private javax.swing.JTextField txt_cantidad;
@@ -489,7 +567,7 @@ public class InterFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_efectivo;
     private javax.swing.JTextField txt_iva;
     private javax.swing.JTextField txt_subtotal;
-    private javax.swing.JTextField txt_total_pagar;
+    public static javax.swing.JTextField txt_total_pagar;
     // End of variables declaration//GEN-END:variables
 
     /*
@@ -636,5 +714,59 @@ public class InterFacturacion extends javax.swing.JInternalFrame {
         txt_iva.setText(String.valueOf(ivaGeneral));
         txt_descuento.setText(String.valueOf(descuentoGeneral));
         txt_total_pagar.setText(String.valueOf(totalPagarGeneral));
+    }
+
+    /*
+    Metodo para obtener id del cliente
+    */
+    private void ObtenerIdCliente() {
+        try {
+            String sql = "select * from tb_cliente where concat(nombre,' ',apellido) = '" + this.jComboBox_cliente.getSelectedItem() + "'";
+            Connection cn = Conexion.conectar();
+            Statement st;
+            st = cn.createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idCliente = rs.getInt("idCliente");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id del cliente: " + e);
+        }
+    }
+    
+    /*
+    Metodo para restar cantidad (stock) de los productos vendidos
+    */
+    private void RestarStockProductos(int idProducto, int cantidad){
+        int cantidadProductosBaseDeDatos = 0;
+        try{
+            Connection cn = Conexion.conectar();
+            String sql = "select idProducto, cantidad from tb_producto where idProducto = '" + idProducto + "'";
+            Statement st;
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                cantidadProductosBaseDeDatos = rs.getInt("cantidad");
+            }
+            cn.close();
+        }catch(SQLException e){
+            System.out.println("Error al restar cantidad del stock: " + e);
+        }
+        
+        try{
+            Connection cn = Conexion.conectar();
+            java.sql.PreparedStatement consulta = cn.prepareStatement("update tb_producto set cantidad=? where idProducto = '" + idProducto + "'");
+            int cantidadNueva = cantidadProductosBaseDeDatos - cantidad;
+            consulta.setInt(1, cantidadNueva);
+            if(consulta.executeUpdate() > 0){
+                //System.out.println("Todo bien");
+            }
+            cn.close();
+            
+        }catch(SQLException e){
+            System.out.println("Error al restar cantidad del stock 2: " + e);
+        }
     }
 }
